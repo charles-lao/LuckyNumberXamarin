@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using System;
 
 namespace LuckyNumber
 {
@@ -21,8 +22,17 @@ namespace LuckyNumber
             SetContentView(Resource.Layout.activity_main);
             seekBar = FindViewById<SeekBar>(Resource.Id.seekBar);
             resultTextView = FindViewById<TextView>(Resource.Id.resultTextView);
-            resultTextView.Text = "9";
             rollButton = (Button)FindViewById(Resource.Id.rollButton);
+            rollButton.Click += RollButton_Click;
+
+            SupportActionBar.Title = "My Lucky Number";
+        }
+
+        private void RollButton_Click(object sender, System.EventArgs e)
+        {
+            Random random = new Random();
+            int luckyNumber = random.Next(seekBar.Progress) + 1;
+            resultTextView.Text = luckyNumber.ToString();
         }
     }
 }
